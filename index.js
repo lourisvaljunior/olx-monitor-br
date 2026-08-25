@@ -12,8 +12,9 @@ const LOG_PATH = path.join(__dirname, 'data', 'scraper.log');
 
 // URLs do OLX Brasil para monitorar
 const OLX_URLS = [
-    'https://www.olx.com.br/brasil?q=iphone+14',
-    'https://sp.olx.com.br/sao-paulo-e-regiao/celulares/iphone?cond=1&cond=2&pe=3000&ps=1500'
+    'https://www.olx.com.br/estado-ce?q=honda%20civic%20branco%202019',
+    'https://www.olx.com.br/estado-ce?q=honda%20civic%20branco%202020',
+    'https://www.olx.com.br/estado-ce?q=honda%20civic%20branco%202021'
 ];
 
 // Inicializa bot do Telegram
