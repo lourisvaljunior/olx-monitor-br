@@ -1,0 +1,41 @@
+name: Monitor OLX Brasil
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'  # Roda a cada 15 minutos
+  workflow_dispatch:        # Permite rodar manualmente
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: Instalar dependências
+        run: npm install
+      
+      - name: Criar diretório de dados
+        run: mkdir -p data
+      
+      - name: Rodar monitor
+        run: node index.js
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      
+      - name: Commitar banco de dados e logs
+        run: |
+          git config user.name 'GitHub Actions'
+          git config user.email 'actions@github.com'
+          git add data/
+          git diff --staged --quiet || git commit -m "Update OLX ads $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
