@@ -2,8 +2,8 @@ name: Monitor OLX Brasil
 
 on:
   schedule:
-    - cron: '*/15 * * * *'  # Roda a cada 15 minutos
-  workflow_dispatch:        # Permite rodar manualmente
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
 
 jobs:
   monitor:
@@ -16,7 +16,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'  # ← MUDAR DE 18 PARA 20
       
       - name: Instalar dependências
         run: npm install
